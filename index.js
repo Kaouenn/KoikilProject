@@ -102901,8 +102901,6 @@ const Autoecole = mongoose.model("Autoecole", {
   Ville:String
 });
 
-/////////////////////////////////////////////////////////////// Début des routes pour Departement
-
 ///////requete tye "create"
 app.post("/autoecole/create", async (req, res) => {
   for (let i = 0; i < tab.length; i++) {
@@ -102925,7 +102923,25 @@ app.post("/autoecole/create", async (req, res) => {
 
 });
 
-/////////////////////////////////////////////////////////////// Fin des routes pour Category
+
+///route READ Get des auto-ecoles
+app.get("/autoecole", async(req, res)=>{
+  try{
+    const autoecole = await Autoecole.find();
+    res.json(autoecole);
+  }catch (error){
+    return res.status(400).json({
+      error: {
+        message: "An error occured"
+      }
+    });
+  }
+});
+
+
+
+/////////////////////////////////////////////////////////////// Fin des routes 
+
 
 app.get("/", (req, resp) =>
   resp.json({
@@ -102934,7 +102950,7 @@ app.get("/", (req, resp) =>
   })
 );
 
-//creation des models users
+//creation des models User
 
 const User = mongoose.model("User", {
   lastName: {
@@ -103097,7 +103113,6 @@ app.post("/deleteUser", async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 });
-
 
 
 
