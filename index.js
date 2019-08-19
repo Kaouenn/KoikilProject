@@ -102901,8 +102901,6 @@ const Autoecole = mongoose.model("Autoecole", {
   Ville:String
 });
 
-
-
 /////////////////////////////////////////////////////////////// Début des routes pour Departement
 
 ///////requete tye "create"
@@ -102926,9 +102924,6 @@ app.post("/autoecole/create", async (req, res) => {
   res.json({ message: "All Auto Ecole Created" });
 
 });
-
-
-
 
 /////////////////////////////////////////////////////////////// Fin des routes pour Category
 
