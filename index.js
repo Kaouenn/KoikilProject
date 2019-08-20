@@ -103004,7 +103004,7 @@ const User = mongoose.model("User", {
 });
 
 // route inscription (create users)
-app.post("/signup", async (req, res) => {
+app.post("/signupUser", async (req, res) => {
   try {
     const {
       password,
@@ -103045,7 +103045,7 @@ app.post("/signup", async (req, res) => {
 });
 
 // route login
-app.post('/login', async (req, res) => {
+app.post('/loginUser', async (req, res) => {
   const { password, email } = req.body;
   // on cherche l'utilisateur par son username
   const user = await User.findOne({ email });
