@@ -19,14 +19,7 @@ mongoose.connect(process.env.MONGODB_URI ||"mongodb://localhost:27017/KoikilData
 /////////////////////////////////////////////////////////////// Inititialisation des classes
 
 const tab=[
-  {
-    "Dept": null,
-    "Raison Sociale": "",
-    "N° agrément": "",
-    "Adresse": "",
-    "CP": null,
-    "Ville": ""
-  },
+  
   {
     "Dept": 1,
     "Raison Sociale": "A-E LA BRUYERE MOTO PASSION",
