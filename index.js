@@ -7,6 +7,9 @@ const SHA256 = require("crypto-js/sha256");
 const encBase64 = require("crypto-js/enc-base64");
 const uid2 = require("uid2");
 const cors = require("cors");
+const formidableMiddleware = require ("express-formidable");
+
+app.use(formidableMiddleware());
 
 
 app.use(bodyParser.json());
@@ -103125,6 +103128,9 @@ app.post("/deleteUser", async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 });
+
+
+
 
 
 
