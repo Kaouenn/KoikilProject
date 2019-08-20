@@ -11,7 +11,7 @@ const uid2 = require("uid2");
 app.use(bodyParser.json());
 
 /////////////////////////////////////////////////////////////// Se connecter à la base de données
-mongoose.connect("mongodb://localhost:27017/KoikilDatabase", {
+mongoose.connect(process.env.MONGODB_URI ||"mongodb://localhost:27017/KoikilDatabase", {
   useNewUrlParser: true
 });
 
@@ -102905,19 +102905,37 @@ const Autoecole = mongoose.model("Autoecole", {
 
 ////////////////Début des routes
 
-///////requete tye "create"
+///////requete type "create"
 app.post("/autoecole/create", async (req, res) => {
   for (let i = 0; i < tab.length; i++) {
     try {
-      const newAutoecole = new Autoecole({
+      if ( tab[i].CP.length !== 5)
+      {
+        const newAutoecole = new Autoecole({
+          Dept:tab[i].Dept,
+          "Raison sociale": tab[i]["Raison sociale"],
+          "N° agrément":tab[i]["N° agrément"],
+          Adresse:tab[i].Adresse,
+          CP: "0" + tab[i].CP,
+          Ville: tab[i].Ville
+        });
+        await  newAutoecole.save();
+
+      } 
+      else {
+        const newAutoecole = new Autoecole({
         Dept:tab[i].Dept,
         "Raison sociale": tab[i]["Raison sociale"],
         "N° agrément":tab[i]["N° agrément"],
         Adresse:tab[i].Adresse,
         CP: tab[i].CP,
-        Ville:tab[i].Ville
+        Ville: tab[i].Ville
       });
       await  newAutoecole.save();
+
+    }
+      
+
     } catch (error) {
       res.status(400).json({ error: error.message });
     }
@@ -103021,7 +103039,7 @@ app.post("/signup", async (req, res) => {
     const salt = uid2(16);
     // on génère le hash (SHA256 est un autre algorythme de hash)
     const hash = SHA256(password + salt).toString(encBase64);
-    // on sauvegarde en bdd username, token, salt et hash mais pas password !
+    // on sauvegarde en bdd email, token, salt et hash mais pas password !
     const user = new User({
       email,
       token,
@@ -103046,7 +103064,7 @@ app.post("/signup", async (req, res) => {
 // route login
 app.post('/login', async (req, res) => {
   const { password, email } = req.body;
-  // on cherche l'utilisateur par son username
+  // on cherche l'utilisateur par son email
   const user = await User.findOne({ email });
   if (!user) {
     res.status(403).json({
@@ -103119,6 +103137,7 @@ app.post("/deleteUser", async (req, res) => {
 
 
 
-app.listen(3000, () => {
+app.listen(process.env.PORT || 3000, () => {
   console.log("Server started");
 });
+
