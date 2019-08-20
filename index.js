@@ -11,9 +11,12 @@ const uid2 = require("uid2");
 app.use(bodyParser.json());
 
 /////////////////////////////////////////////////////////////// Se connecter à la base de données
-mongoose.connect("mongodb://localhost:27017/KoikilDatabase", {
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost:27017/KoikilDatabase", {
   useNewUrlParser: true
 });
+
+
+
 
 /////////////////////////////////////////////////////////////// Inititialisation des classes
 const tab=[
