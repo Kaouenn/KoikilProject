@@ -102882,11 +102882,9 @@ const tab=[
     "Adresse": "",
     "CP": null,
     "Ville": ""
-  },
-  {
-    useNewUrlParser: true
   }
-);
+]
+
 
 /////////////////////////////////////////////////////////////// Inititialisation des classes
 
