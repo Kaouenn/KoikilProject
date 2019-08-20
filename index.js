@@ -102897,10 +102897,12 @@ const Autoecole = mongoose.model("Autoecole", {
 ///////requete type "create"
 app.post("/autoecole/create", async (req, res) => {
   for (let i = 0; i < tab.length; i++) {
+    
+    
     try {
       if (tab[i].CP === null) {
 
-      } else if (tab[i].CP.length < 10000) {
+      } else if (tab[i].CP < 10000) {
         
       
         const newAutoecole = new Autoecole({
