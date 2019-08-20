@@ -102900,7 +102900,7 @@ app.post("/autoecole/create", async (req, res) => {
     try {
       if (tab[i].CP === null) {
 
-      } else if (tab[i].CP.length !== 5) {
+      } else if (tab[i].CP.length < 10000) {
         
       
         const newAutoecole = new Autoecole({
