@@ -102898,8 +102898,11 @@ const Autoecole = mongoose.model("Autoecole", {
 app.post("/autoecole/create", async (req, res) => {
   for (let i = 0; i < tab.length; i++) {
     try {
-      if ( tab[i].CP.length !== 5)
-      {
+      if (tab[i].CP === null) {
+
+      } else if (tab[i].CP.length !== 5) {
+        
+      
         const newAutoecole = new Autoecole({
           Dept:tab[i].Dept,
           "Raison sociale": tab[i]["Raison sociale"],
@@ -102910,8 +102913,8 @@ app.post("/autoecole/create", async (req, res) => {
         });
         await  newAutoecole.save();
 
-      } 
-      else {
+      
+       } else {
         const newAutoecole = new Autoecole({
         Dept:tab[i].Dept,
         "Raison sociale": tab[i]["Raison sociale"],
@@ -102944,6 +102947,8 @@ app.get("/autoecole", async (req, res) => {
       }
     });
   }
+      
+      
 });
 
 /////////////////////////////////////////////////////////////// Fin des routes
