@@ -6,8 +6,10 @@ const pkg = require("./package.json");
 const SHA256 = require("crypto-js/sha256");
 const encBase64 = require("crypto-js/enc-base64");
 const uid2 = require("uid2");
+const cors = require("cors");
 
 app.use(bodyParser.json());
+app.use(cors());
 
 /////////////////////////////////////////////////////////////// Se connecter à la base de données
 mongoose.connect(
