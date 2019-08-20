@@ -6,6 +6,7 @@ const pkg = require("./package.json");
 const SHA256 = require("crypto-js/sha256");
 const encBase64 = require("crypto-js/enc-base64");
 const uid2 = require("uid2");
+const cors = require("cors");
 
 
 app.use(bodyParser.json());
@@ -16,6 +17,7 @@ mongoose.connect(process.env.MONGODB_URI ||"mongodb://localhost:27017/KoikilData
 });
 
 /////////////////////////////////////////////////////////////// Inititialisation des classes
+
 const tab=[
   {
     "Dept": null,
@@ -102882,23 +102884,19 @@ const tab=[
     "Ville": ""
   },
   {
-    "Dept": null,
-    "Raison Sociale": "",
-    "N° agrément": "",
-    "Adresse": "",
-    "CP": null,
-    "Ville": ""
+    useNewUrlParser: true
   }
- ]
- 
+);
+
+/////////////////////////////////////////////////////////////// Inititialisation des classes
 
 const Autoecole = mongoose.model("Autoecole", {
-  Dept:Number,
+  Dept: Number,
   "Raison sociale": String,
   "N° agrément": String,
-  Adresse:String,
+  Adresse: String,
   CP: String,
-  Ville:String
+  Ville: String
 });
 
 
@@ -102926,8 +102924,8 @@ app.post("/autoecole/create", async (req, res) => {
         const newAutoecole = new Autoecole({
         Dept:tab[i].Dept,
         "Raison sociale": tab[i]["Raison sociale"],
-        "N° agrément":tab[i]["N° agrément"],
-        Adresse:tab[i].Adresse,
+        "N° agrément": tab[i]["N° agrément"],
+        Adresse: tab[i].Adresse,
         CP: tab[i].CP,
         Ville: tab[i].Ville
       });
@@ -102939,18 +102937,16 @@ app.post("/autoecole/create", async (req, res) => {
     } catch (error) {
       res.status(400).json({ error: error.message });
     }
-    
   }
   res.json({ message: "All Auto Ecole Created" });
-
 });
 
 ///route READ Get des auto-ecoles
-app.get("/autoecole", async(req, res)=>{
-  try{
+app.get("/autoecole", async (req, res) => {
+  try {
     const autoecole = await Autoecole.find();
     res.json(autoecole);
-  }catch (error){
+  } catch (error) {
     return res.status(400).json({
       error: {
         message: "An error occured"
@@ -102959,9 +102955,7 @@ app.get("/autoecole", async(req, res)=>{
   }
 });
 
-
-
-/////////////////////////////////////////////////////////////// Fin des routes 
+/////////////////////////////////////////////////////////////// Fin des routes
 
 app.get("/", (req, resp) =>
   resp.json({
@@ -103021,7 +103015,7 @@ const User = mongoose.model("User", {
 });
 
 // route inscription (create users)
-app.post("/signup", async (req, res) => {
+app.post("/signupUser", async (req, res) => {
   try {
     const {
       password,
@@ -103062,13 +103056,13 @@ app.post("/signup", async (req, res) => {
 });
 
 // route login
-app.post('/login', async (req, res) => {
+app.post("/loginUser", async (req, res) => {
   const { password, email } = req.body;
   // on cherche l'utilisateur par son email
   const user = await User.findOne({ email });
   if (!user) {
     res.status(403).json({
-      error: 'Unvalid email/password',
+      error: "Unvalid email/password"
     });
     return;
   }
@@ -103077,13 +103071,13 @@ app.post('/login', async (req, res) => {
   // si le hash correspond, le mot de passe est bon
   if (hash !== user.hash) {
     res.status(403).json({
-      error: 'Unvalid email/password',
+      error: "Unvalid email/password"
     });
     return;
   }
   res.json({
     email,
-    token: user.token,
+    token: user.token
   });
 });
 
