@@ -2,14 +2,7 @@ const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
 
-const Autoecole = mongoose.model("Autoecole", {
-  Dept: Number,
-  "Raison sociale": String,
-  "N° agrément": String,
-  Adresse: String,
-  CP: String,
-  Ville: String
-});
+const Autoecole = require("../models/autoecolemodel");
 
 ///////requete tye "create"
 router.post("/autoecole/create", async (req, res) => {

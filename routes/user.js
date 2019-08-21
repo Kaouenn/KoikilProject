@@ -7,6 +7,9 @@ const uid2 = require("uid2");
 const bodyParser = require("body-parser");
 // const formidableMiddleware = require("express-formidable");
 
+
+const User = require("../models/usermodel");
+
 //creation des models User
 
 // router.post("upload", formidableMiddleware(), (req, res) => {
@@ -62,6 +65,7 @@ const User = mongoose.model("User", {
   }
 });
 
+
 // route inscription (create users)
 router.post("/signupUser", async (req, res) => {
   try {
@@ -73,7 +77,7 @@ router.post("/signupUser", async (req, res) => {
       postCode,
       adress,
       phoneNumber
-    } = req.body;
+    } = req.fields;
     // on créer un token
     // uid2 est package qui permet de générer des chaines de caractere aléatoires
 
@@ -107,7 +111,7 @@ router.post("/signupUser", async (req, res) => {
 
 // route login
 router.post("/loginUser", async (req, res) => {
-  const { password, email } = req.body;
+  const { password, email } = req.fields;
   // on cherche l'utilisateur par son username
   const user = await User.findOne({ email });
   if (!user) {
@@ -144,14 +148,14 @@ router.get("/user", async (req, res) => {
 // Modif du user
 router.post("/updateUser", async (req, res) => {
   try {
-    if (req.body.email) {
-      const user = await User.findOne({ email: req.body.email });
-      (user.lastName = req.body.lastName),
-        (user.name = req.body.name),
-        (user.password = req.body.password),
-        (user.phoneNumber = req.body.phoneNumber),
-        (user.adress = req.body.adress),
-        (user.postCode = req.body.postCode);
+    if (req.fields.email) {
+      const user = await User.findOne({ email: req.fields.email });
+      (user.lastName = req.fields.lastName),
+        (user.name = req.fields.name),
+        (user.password = req.fields.password),
+        (user.phoneNumber = req.fields.phoneNumber),
+        (user.adress = req.fields.adress),
+        (user.postCode = req.fields.postCode);
 
       await user.save();
       res.json({ message: "Updated" });
@@ -166,8 +170,8 @@ router.post("/updateUser", async (req, res) => {
 // delete user
 router.post("/deleteUser", async (req, res) => {
   try {
-    if (req.body.email) {
-      const user = await User.findOne({ email: req.body.email });
+    if (req.fields.email) {
+      const user = await User.findOne({ email: req.fields.email });
       await user.remove();
       res.json({ message: "Removed" });
     } else {
