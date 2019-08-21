@@ -7,8 +7,9 @@ const SHA256 = require("crypto-js/sha256");
 const encBase64 = require("crypto-js/enc-base64");
 const uid2 = require("uid2");
 const cors = require("cors");
+const formidableMiddleware = require("express-formidable");
 
-app.use(bodyParser.json());
+app.use(formidableMiddleware());
 app.use(cors());
 
 require("./models/autoecolemodel");
@@ -16,10 +17,12 @@ require("./models/usermodel");
 
 const autoecole = require("./routes/autoecole");
 const user = require("./routes/user");
+const upload = require("./routes/upload");
 
 //Activer les routes
 app.use(autoecole);
 app.use(user);
+app.use(upload);
 
 /////////////////////////////////////////////////////////////// Se connecter à la base de données
 mongoose.connect(
