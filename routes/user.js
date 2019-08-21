@@ -4,8 +4,15 @@ const mongoose = require("mongoose");
 const SHA256 = require("crypto-js/sha256");
 const encBase64 = require("crypto-js/enc-base64");
 const uid2 = require("uid2");
+const bodyParser = require("body-parser");
+// const formidableMiddleware = require("express-formidable");
 
 //creation des models User
+
+// router.post("upload", formidableMiddleware(), (req, res) => {
+//   console.log(req.files);
+//   res.json("upload ici");
+// });
 
 const User = mongoose.model("User", {
   lastName: {
