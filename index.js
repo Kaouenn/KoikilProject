@@ -11,6 +11,16 @@ const cors = require("cors");
 app.use(bodyParser.json());
 app.use(cors());
 
+require("./models/autoecolemodel");
+require("./models/usermodel");
+
+const autoecole = require("./routes/autoecole");
+const user = require("./routes/user");
+
+//Activer les routes
+app.use(autoecole);
+app.use(user);
+
 /////////////////////////////////////////////////////////////// Se connecter à la base de données
 mongoose.connect(
   process.env.MONGODB_URI || "mongodb://localhost:27017/KoikilDatabase",
@@ -25,14 +35,6 @@ app.get("/", (req, resp) =>
     version: pkg.version
   })
 );
-
-const autoecole = require("./routes/autoecole");
-
-app.use(autoecole);
-
-const user = require("./routes/user");
-
-app.use(user);
 
 app.listen(process.env.PORT || 3000, () => {
   console.log("Server started");
