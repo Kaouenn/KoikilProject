@@ -14,7 +14,7 @@ app.use(bodyParser.json());
 app.use(autoecole);
 app.use(user);
 
-/////////////////////////////////////////////////////////////// Se connecter à la base de données
+// Se connecter à la base de données
 mongoose.connect(
   process.env.MONGODB_URI || "mongodb://localhost:27017/KoikilDatabase",
   {
