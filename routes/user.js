@@ -52,7 +52,7 @@ router.post("/signupUser", async (req, res) => {
 
 // route login
 router.post("/loginUser", async (req, res) => {
-  const { password, email } = req.fields;
+  const { password, email, name } = req.fields;
   // on cherche l'utilisateur par son username
   const user = await User.findOne({ email });
   if (!user) {
@@ -72,7 +72,8 @@ router.post("/loginUser", async (req, res) => {
   }
   res.json({
     email,
-    token: user.token
+    token: user.token,
+    name
   });
 });
 
