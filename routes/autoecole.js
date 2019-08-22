@@ -40,7 +40,7 @@ router.get("/autoecole", async (req, res) => {
 
 router.get("/CP", async (req, res) => {
   try {
-    const autoecoleCp = await Autoecole.find(req.fields.cp);
+    const autoecoleCp = await Autoecole.find({ CP: req.fields.cp });
     res.json(autoecoleCp);
   } catch (error) {
     return res.status(400).json({
