@@ -9,16 +9,12 @@ cloudinary.config({
 });
 
 router.post("/upload", (req, res) => {
-  console.log(req.files);
-
   // les différentes clés des fichiers (file1, file2, file3...)
   const files = Object.keys(req.files);
   if (files.length) {
     const results = {};
     // on parcourt les fichiers
     files.forEach(fileKey => {
-      console.log("salut");
-
       // on utilise les path de chaque fichier (la localisation temporaire du fichier sur le serveur)
       cloudinary.v2.uploader.upload(
         req.files[fileKey].path,
@@ -28,7 +24,6 @@ router.post("/upload", (req, res) => {
         },
         (error, result) => {
           // on enregistre le résultat dans un objet
-          console.log(error);
 
           if (error) {
             results[fileKey] = {
