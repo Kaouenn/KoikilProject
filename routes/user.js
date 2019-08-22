@@ -43,7 +43,8 @@ router.post("/signupUser", async (req, res) => {
     await user.save();
     res.json({
       email,
-      token
+      token,
+      name
     });
   } catch (error) {
     res.json({ error: error.message });
