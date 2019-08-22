@@ -15,6 +15,8 @@ router.post("/upload", (req, res) => {
     const results = {};
     // on parcourt les fichiers
     files.forEach(fileKey => {
+      console.log("salut");
+
       // on utilise les path de chaque fichier (la localisation temporaire du fichier sur le serveur)
       cloudinary.v2.uploader.upload(
         req.files[fileKey].path,
