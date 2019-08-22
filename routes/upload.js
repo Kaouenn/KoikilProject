@@ -9,6 +9,8 @@ cloudinary.config({
 });
 
 router.post("/upload", (req, res) => {
+  console.log(req.files);
+
   // les différentes clés des fichiers (file1, file2, file3...)
   const files = Object.keys(req.files);
   if (files.length) {
@@ -26,6 +28,8 @@ router.post("/upload", (req, res) => {
         },
         (error, result) => {
           // on enregistre le résultat dans un objet
+          console.log(result);
+
           if (error) {
             results[fileKey] = {
               success: false,
