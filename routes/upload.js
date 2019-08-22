@@ -9,24 +9,42 @@ cloudinary.config({
 });
 
 router.post("/upload", (req, res) => {
-  // on log les fichiers reçus
-  console.log(req.files); // { file1: ..., file2: ... }
-  // ...
-  const fileKeys = Object.keys(req.files);
-  if (fileKeys.length === 0) {
-    res.send("No file uploaded!");
-    return;
-  }
-  fileKeys.forEach(fileKey => {
-    const file = req.files[fileKey];
-    cloudinary.v2.uploader.upload(file.path, (error, result) => {
-      if (error) {
-        return res.json({ error: `Upload Error` });
-      } else {
-        return res.json(result);
-      }
+  // les différentes clés des fichiers (file1, file2, file3...)
+  const files = Object.keys(req.files);
+  if (files.length) {
+    const results = {};
+    // on parcourt les fichiers
+    files.forEach(fileKey => {
+      // on utilise les path de chaque fichier (la localisation temporaire du fichier sur le serveur)
+      cloudinary.v2.uploader.upload(
+        req.files[fileKey].path,
+        {
+          // on peut préciser un dossier dans lequel stocker l'image
+          folder: "some_folder"
+        },
+        (error, result) => {
+          // on enregistre le résultat dans un objet
+          if (error) {
+            results[fileKey] = {
+              success: false,
+              error: error
+            };
+          } else {
+            results[fileKey] = {
+              success: true,
+              result: result
+            };
+          }
+          if (Object.keys(results).length === files.length) {
+            // tous les uploads sont terminés, on peut donc envoyer la réponse au client
+            return res.json(results);
+          }
+        }
+      );
     });
-  });
+  } else {
+    res.send("No file uploaded!");
+  }
 });
 
 module.exports = router;
