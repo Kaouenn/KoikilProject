@@ -28,7 +28,7 @@ router.post("/upload", (req, res) => {
         },
         (error, result) => {
           // on enregistre le résultat dans un objet
-          console.log(result);
+          console.log(error);
 
           if (error) {
             results[fileKey] = {
