@@ -14,15 +14,18 @@ app.use(cors());
 
 require("./models/autoecolemodel");
 require("./models/usermodel");
+require("./models/contractmodel");
 
 const autoecole = require("./routes/autoecole");
 const user = require("./routes/user");
 const upload = require("./routes/upload");
+const contract = require("./routes/contract");
 
 //Activer les routes
 app.use(autoecole);
 app.use(user);
 app.use(upload);
+app.use(contract);
 
 /////////////////////////////////////////////////////////////// Se connecter à la base de données
 mongoose.connect(
