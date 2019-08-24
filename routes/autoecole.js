@@ -10,7 +10,7 @@ router.post("/autoecole/create", async (req, res) => {
     try {
       const newAutoecole = new Autoecole({
         Dept: tab[i].Dept,
-        "Raison sociale": tab[i]["Raison sociale"],
+        "Raison Sociale": tab[i]["Raison sociale"],
         "N° agrément": tab[i]["N° agrément"],
         Adresse: tab[i].Adresse,
         CP: tab[i].CP,
