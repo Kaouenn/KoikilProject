@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const mongoose = require("mongoose");
 
 const Autoecole = require("../models/autoecolemodel");
 
@@ -40,7 +39,9 @@ router.get("/autoecole", async (req, res) => {
 
 router.get("/CP", async (req, res) => {
   try {
-    const autoecoleCp = await Autoecole.find({ CP: req.query.cp });
+    const autoecoleCp = await Autoecole.find({
+      CP: req.query.cp
+    });
     res.json(autoecoleCp);
   } catch (error) {
     return res.status(400).json({

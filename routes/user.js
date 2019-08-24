@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const mongoose = require("mongoose");
 const SHA256 = require("crypto-js/sha256");
 const encBase64 = require("crypto-js/enc-base64");
 const uid2 = require("uid2");
@@ -40,6 +39,12 @@ router.post("/signupUser", async (req, res) => {
       phoneNumber,
       adress
     });
+    /*  if (req.fields.email === user.email) {
+      res.status(409).json({
+        error: "email exist"
+      }); 
+    }*/
+
     await user.save();
     res.json({
       email,
@@ -81,8 +86,10 @@ router.post("/loginUser", async (req, res) => {
 // route read user
 router.get("/user", async (req, res) => {
   try {
-    const users = await User.find();
-    res.json(users);
+    const users = await User.find().populate("autoEcole");
+    // console.log(users);
+
+    res.json({ users });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
@@ -92,13 +99,31 @@ router.get("/user", async (req, res) => {
 router.post("/updateUser", async (req, res) => {
   try {
     if (req.fields.email) {
-      const user = await User.findOne({ email: req.fields.email });
+      const user = await User.findOne({
+        email: req.fields.email
+      });
+
+      /* 
+      const autoecole = await Autoecole.findOne({
+      _id: req.fields.autoecole
+      });
       (user.lastName = req.fields.lastName),
         (user.name = req.fields.name),
         (user.password = req.fields.password),
         (user.phoneNumber = req.fields.phoneNumber),
         (user.adress = req.fields.adress),
-        (user.postCode = req.fields.postCode);
+        (user.postCode = req.fields.postCode),
+        (user.autoEcole = autoecole); */
+
+      //boucle sur req.fields(drivingschool) qui correspond au keys des models
+      //Object.keys pour recupéré les clés de req.fields(drivingschool)
+      const drivingschool = await Object.keys(req.fields);
+      for (let i = 0; i < drivingschool.length; i++) {
+        // maintenant element correspond à chaque clés
+        const element = drivingschool[i];
+        //
+        user[element] = req.fields[element];
+      }
 
       await user.save();
       res.json({ message: "Updated" });
