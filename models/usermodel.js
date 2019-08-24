@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 
 //creation des models User
-
 const User = mongoose.model("User", {
   lastName: {
     type: String,
@@ -13,7 +12,8 @@ const User = mongoose.model("User", {
   },
   email: {
     type: String,
-    required: true
+    required: true,
+    index: { unique: true, dropDups: true }
   },
   phoneNumber: {
     type: Number,
@@ -25,7 +25,6 @@ const User = mongoose.model("User", {
   },
   postCode: {
     type: String,
-
     required: true,
     minlength: 2,
     maxlength: 5
@@ -47,6 +46,10 @@ const User = mongoose.model("User", {
   userUpload: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Userupload"
+  },
+  autoEcole: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Autoecole"
   }
 });
 
