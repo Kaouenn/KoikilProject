@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 
 const Autoecole = mongoose.model("Autoecole", {
   Dept: Number,
-  "Raison sociale": String,
+  "Raison Sociale": String,
   "N° agrément": String,
   Adresse: String,
   CP: String,
