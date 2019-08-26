@@ -4,7 +4,7 @@ const createStripe = require("stripe");
 // const cors = require("cors");
 /* Votre clé privée doit être indiquée ici */
 const stripe = createStripe(
-  "https://" + sk_test_FcQTuuEym2CYxtkcMdLAsoEg002eXGf3Eg + ":@api..."
+  "sk_test_FcQTuuEym2CYxtkcMdLAsoEg002eXGf3Eg"
 );
 
 // router.use(cors());
