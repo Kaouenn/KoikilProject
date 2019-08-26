@@ -1,14 +1,14 @@
 const express = require("express");
 const router = express.Router();
 const createStripe = require("stripe");
-// const cors = require("cors");
+const cors = require("cors");
 /* Votre clé privée doit être indiquée ici */
 
 const stripe = createStripe(
   "sk_test_FcQTuuEym2CYxtkcMdLAsoEg002eXGf3Eg"
 
 
-// router.use(cors());
+router.use(cors());
 // router.use(body.json());
 // 5. on réceptionne le token
 router.post("/charge", async (req, res) => {
