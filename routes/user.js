@@ -86,7 +86,7 @@ router.post("/loginUser", async (req, res) => {
 // route read user
 router.get("/user", async (req, res) => {
   try {
-    const users = await User.find().populate("Autoecole");
+    const users = await User.find().populate("autoEcole");
     // console.log(users);
 
     res.json({ users });
