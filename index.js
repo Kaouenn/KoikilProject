@@ -21,7 +21,7 @@ const stripe = require("./routes/stripe");
 //Activer les routes
 app.use(autoecole);
 app.use(user);
-app.use(upload);
+app.use(upload);s
 app.use(contract);
 app.use(stripe);
 
