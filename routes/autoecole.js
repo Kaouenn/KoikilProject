@@ -99974,19 +99974,23 @@ const tab =
 router.post("/autoecole/create", async (req, res) => {
   for (let i = 0; i < tab.length; i++) {
       try {
-/*         if ( tab[i].CP.length !== 5)
-        {
+        if (tab[i].CP === null) {
+
+        } else if (tab[i].CP < 10000) {
+          
+        
           const newAutoecole = new Autoecole({
             Dept:tab[i].Dept,
-            "Raison Sociale": tab[i]["Raison sociale"],
+            "Raison Sociale": tab[i]["Raison Sociale"],
             "N° agrément":tab[i]["N° agrément"],
             Adresse:tab[i].Adresse,
             CP: "0" + tab[i].CP,
             Ville: tab[i].Ville
           });
           await  newAutoecole.save();
-        } 
-        else { */
+  
+        
+         } else {
           const newAutoecole = new Autoecole({
           Dept:tab[i].Dept,
           "Raison Sociale": tab[i]["Raison Sociale"],
@@ -99997,7 +100001,7 @@ router.post("/autoecole/create", async (req, res) => {
         });
         await  newAutoecole.save();
   
-      //}
+      }
 
     } catch (error) {
       res.status(400).json({ error: error.message });
