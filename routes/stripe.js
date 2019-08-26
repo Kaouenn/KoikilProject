@@ -1,12 +1,12 @@
 const express = require("express");
 const router = express.Router();
 const createStripe = require("stripe");
-const cors = require("cors");
+// const cors = require("cors");
 /* Votre clé privée doit être indiquée ici */
 const stripe = createStripe("sk_test_FcQTuuEym2CYxtkcMdLAsoEg002eXGf3Eg");
 
-router.use(cors());
-router.use(body.json());
+// router.use(cors());
+// router.use(body.json());
 // 5. on réceptionne le token
 router.post("/charge", async (req, res) => {
   try {
@@ -22,7 +22,7 @@ router.post("/charge", async (req, res) => {
     // 10. On renvoie une réponse au client pour afficher un message de statut
     res.json({ status });
   } catch (err) {
-    console.log(err);
+    console.log(err.message);
     res.status(500).end();
   }
 });
