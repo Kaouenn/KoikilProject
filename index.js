@@ -17,7 +17,7 @@ const user = require("./routes/user");
 const upload = require("./routes/upload");
 const contract = require("./routes/contract");
 const refund = require("./routes/refund");
-//const stripe = require("./routes/stripe");
+const stripe = require("./routes/stripe");
 
 //Activer les routes
 app.use(autoecole);
@@ -25,7 +25,7 @@ app.use(user);
 app.use(upload);
 app.use(contract);
 app.use(refund);
-//app.use(stripe);
+app.use(stripe);
 
 /////////////////////////////////////////////////////////////// Se connecter à la base de données
 mongoose.connect(
