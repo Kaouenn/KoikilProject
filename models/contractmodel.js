@@ -4,12 +4,12 @@ const Contract = mongoose.model("Contract ", {
     numberContract: {
         type: Number
     },
-  updated: { type: Date, default: Date.now },
-  autoEcole: {
+    updated: { type: Date, default: Date.now },
+    autoEcole: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Autoecole"
   },
-  name: {
+    name: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User"
   }
