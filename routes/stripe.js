@@ -3,7 +3,7 @@ const router = express.Router();
 const createStripe = require("stripe");
 const cors = require("cors");
 /* Votre clé privée doit être indiquée ici */
-const stripe = createStripe("sk_test_FcQTuuEym2CYxtkcMdLAsoEg002eXGf3Eg");
+const stripe = createStripe("sk_test_YOUR_PRIVATE_API_KEY");
 
 router.use(cors());
 router.use(body.json());
