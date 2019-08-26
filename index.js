@@ -16,12 +16,14 @@ const autoecole = require("./routes/autoecole");
 const user = require("./routes/user");
 const upload = require("./routes/upload");
 const contract = require("./routes/contract");
+const stripe = require("./routes/stripe");
 
 //Activer les routes
 app.use(autoecole);
 app.use(user);
 app.use(upload);
 app.use(contract);
+app.use(stripe);
 
 /////////////////////////////////////////////////////////////// Se connecter à la base de données
 mongoose.connect(
