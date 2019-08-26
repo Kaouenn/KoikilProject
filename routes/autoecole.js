@@ -2,9 +2,8 @@ const express = require("express");
 const router = express.Router();
 const Autoecole = require("../models/autoecolemodel");
 
-const tab=
+const tab =
 [
-  
   {
     "Dept": 1,
     "Raison Sociale": "A-E LA BRUYERE MOTO PASSION",
@@ -99964,23 +99963,41 @@ const tab=
     "Adresse": "3 Boulevard du Lac",
     "CP": 95880,
     "Ville": "ENGHIEN-LES-BAINS"
+  },
+  {
+    useNewUrlParser: true
   }
- ]
+ ];
 
 ///////requete type "create"
 router.post("/autoecole/create", async (req, res) => {
   for (let i = 0; i < tab.length; i++) {
-    try {
+      try {
+        if ( tab[i].CP.length !== 5)
+        {
+          const newAutoecole = new Autoecole({
+            Dept:tab[i].Dept,
+            "Raison Sociale": tab[i]["Raison sociale"],
+            "N° agrément":tab[i]["N° agrément"],
+            Adresse:tab[i].Adresse,
+            CP: "0" + tab[i].CP,
+            Ville: tab[i].Ville
+          });
+          await  newAutoecole.save();
+        } 
+        else {
+          const newAutoecole = new Autoecole({
+          Dept:tab[i].Dept,
+          "Raison Sociale": tab[i]["Raison sociale"],
+          "N° agrément": tab[i]["N° agrément"],
+          Adresse: tab[i].Adresse,
+          CP: tab[i].CP,
+          Ville: tab[i].Ville
+        });
+        await  newAutoecole.save();
+  
+      }
 
-      const newAutoecole = new Autoecole({
-        Dept: tab[i].Dept,
-        "Raison Sociale": tab[i]["Raison sociale"],
-        "N° agrément": tab[i]["N° agrément"],
-        Adresse: tab[i].Adresse,
-        CP: tab[i].CP,
-        Ville: tab[i].Ville
-      });
-      await newAutoecole.save();
     } catch (error) {
       res.status(400).json({ error: error.message });
     }
