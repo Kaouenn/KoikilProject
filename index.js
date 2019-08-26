@@ -29,8 +29,7 @@ app.use(stripe);
 
 /////////////////////////////////////////////////////////////// Se connecter à la base de données
 mongoose.connect(
-  process.env.MONGODB_URI ||
-    "mongodb://heroku_8wkr3sdw:9avo2nr5opjvjnkhpuqq16h2is@ds211168.mlab.com:11168/heroku_8wkr3sdw",
+  process.env.MONGODB_URI || "mongodb://localhost:27017/KoikilDatabase",
   {
     useNewUrlParser: true,
     useFindAndModify: false,
