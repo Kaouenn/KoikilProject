@@ -12,12 +12,12 @@ router.use(cors());
 router.post("/charge", async (req, res) => {
   try {
     // 6. On envoie le token a Stripe avec le montant
-    (async () => {
-      const customer = await stripe.customers.create({
-        email: req.fields.customerEmail,
-        source: req.fields.token
-      });
-    })();
+    // (async () => {
+    //   const customer = await stripe.customers.create({
+    //     email: req.fields.customerEmail,
+    //     source: req.fields.token
+    //   });
+    // })();
 
     let { status } = await stripe.charges.create({
       amount: 15000,
@@ -28,7 +28,7 @@ router.post("/charge", async (req, res) => {
     // 8. Le paiement a fonctionné
     // 9. On peut mettre à jour la base de données
     // 10. On renvoie une réponse au client pour afficher un message de statut
-    res.json({ status, customer });
+    res.json({ status });
   } catch (err) {
     console.log(err.message);
     res.status(500).end();
