@@ -38,6 +38,8 @@ router.post("/contract", (req, res) => {
           }
           if (Object.keys(results).length === files.length) {
             // tous les uploads sont terminés, on peut donc envoyer la réponse au client
+            console.log(result);
+
             return res.json(results);
           }
         }
