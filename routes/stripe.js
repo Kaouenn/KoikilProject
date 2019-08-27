@@ -15,7 +15,9 @@ router.post("/charge", async (req, res) => {
 
     const customer = await stripe.customers.create({
       email: req.fields.customerEmail,
-      source: req.fields.token
+      source: req.fields.token,
+      amount: 15000,
+      currency: "eur"
     })();
     let { status } = await stripe.charges.create({
       amount: 15000,
