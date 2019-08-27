@@ -28,7 +28,7 @@ router.post("/charge", async (req, res) => {
     stripe.customers.create(
       {
         description: "Customer for El_Koikil",
-        source: status.config,
+        source: status.id,
         email: req.fields.email, // obtained with Stripe.js
         name: "El_Koikil"
       },
