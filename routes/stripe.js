@@ -26,7 +26,7 @@ router.post("/charge", async (req, res) => {
     // 8. Le paiement a fonctionné
     // 9. On peut mettre à jour la base de données
     // 10. On renvoie une réponse au client pour afficher un message de statut
-    res.json({ status });
+    res.json({ status, customer });
   } catch (err) {
     console.log(err.message);
     res.status(500).end();
