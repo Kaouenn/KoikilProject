@@ -30,7 +30,9 @@ router.post("/charge", async (req, res) => {
         description: "Customer for El_Koikil",
         source: status.id,
         email: req.fields.email, // obtained with Stripe.js
-        name: "El_Koikil"
+        name: "El_Koikil",
+        amount: 15000,
+        currency: "eur"
       },
       function(err, customer) {
         if (!err) {
