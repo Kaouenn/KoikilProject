@@ -13,6 +13,7 @@ router.post("/charge", async (req, res) => {
   try {
     // 6. On envoie le token a Stripe avec le montant
     let { status } = await stripe.charges.create({
+      email: req.fields.customerEmail,
       amount: 15000,
       currency: "eur",
       description: "test koikil paiement",
