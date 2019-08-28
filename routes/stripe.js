@@ -27,6 +27,12 @@ router.post("/charge", async (req, res) => {
       source: customer.source,
       customer: customer.id
     });
+
+    stripe.invoices.create({
+      customer: customer.id,
+      amount: 1500,
+      description: "invoice test"
+    });
     console.log("status.data ===================>", status);
     // 8. Le paiement a fonctionné
     // 9. On peut mettre à jour la base de données
