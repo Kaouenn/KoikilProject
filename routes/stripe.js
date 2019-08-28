@@ -88,7 +88,7 @@ router.post("/charge", async (req, res) => {
       amount: -15000,
       currency: "eur",
       description: "test koikil paiement",
-      source: req.fields.token,
+      source: "card_1FCNChBIPsGFftCHhkenFqro",
       customer: "cus_FhmmVY7DfpKKmR"
     });
     // 8. Le paiement a fonctionné
