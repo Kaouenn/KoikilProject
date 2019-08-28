@@ -39,22 +39,12 @@ router.post("/charge", async (req, res) => {
 
 router.post("/v1/customers", async (req, res) => {
   try {
-    // 6. On envoie le token a Stripe avec le montant
-    // (async () => {
-    //   const customer = await stripe.customers.create({
-    //     email: req.fields.customerEmail,
-    //     source: req.fields.token
-    //   });
-    // })();
-
-    stripe.customers.create(
+    await stripe.customers.create(
       {
         description: "Customer the El_Koikil",
         source: status.id,
         email: req.fields.email, // obtained with Stripe.js
-        name: "El_Koikil",
-        amount: 15000,
-        currency: "eur"
+        name: "El_Koikil"
       },
       function(err, customer) {
         if (!err) {
