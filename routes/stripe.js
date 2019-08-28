@@ -85,7 +85,7 @@ router.post("/charge", async (req, res) => {
     // }
 
     let { status } = await stripe.charges.create({
-      amount: -15000,
+      amount: 15000,
       currency: "eur",
       description: "test koikil paiement",
       source: "card_1FCNChBIPsGFftCHhkenFqro",
