@@ -16,7 +16,7 @@ router.post("/charge", async (req, res) => {
       email: req.fields.email, // obtained with Stripe.js
       name: req.fields.name
     });
-    console.log("customer ====>", customer);
+    // console.log("customer ====>", customer);
 
     /////////////////////////////////////
 
@@ -33,12 +33,15 @@ router.post("/charge", async (req, res) => {
     //   amount: 1500,
     //   description: "invoice test"
     // });
-    console.log("status.data ===================>", status);
+    // console.log("status.data ===================>", status);
     // 8. Le paiement a fonctionné
     // 9. On peut mettre à jour la base de données
     // 10. On renvoie une réponse au client pour afficher un message de statut
-    console.log({ status });
-    res.json({ status, customer });
+    console.log(
+      "status.datatageule ===================================>",
+      status
+    );
+    res.json({ customer });
   } catch (err) {
     console.log("erreur du catch ===>", err.message);
     res.status(500).end();
