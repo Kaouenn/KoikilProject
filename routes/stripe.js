@@ -14,9 +14,7 @@ router.post("/charge", async (req, res) => {
       description: "Création compte client Koikil",
       source: req.fields.token,
       email: req.fields.email, // obtained with Stripe.js
-      name: req.fields.name,
-      invoice_prefix: "5CBB57E",
-      created: 1566978211
+      name: req.fields.name
     });
     console.log("customer ====>", customer);
 
