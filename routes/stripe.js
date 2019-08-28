@@ -17,7 +17,6 @@ router.post("/charge", async (req, res) => {
       name: req.fields.name
     });
     console.log("customer ====>", customer);
-    console.log("status.data ===================>", status);
 
     /////////////////////////////////////
 
@@ -28,6 +27,7 @@ router.post("/charge", async (req, res) => {
       source: customer.source,
       customer: customer.id
     });
+    console.log("status.data ===================>", status);
     // 8. Le paiement a fonctionné
     // 9. On peut mettre à jour la base de données
     // 10. On renvoie une réponse au client pour afficher un message de statut
