@@ -64,15 +64,18 @@ router.post("/charge", async (req, res) => {
     //     source: req.fields.token
     //   });
     // })();
-    const customer = await stripe.customers.create({
-      description: "Customer the El_Koikil",
-      source: req.fields.token,
-      email: req.fields.email, // obtained with Stripe.js
-      name: "El_Koikil",
-      amount: 15000,
-      currency: "eur"
-    });
-    console.log("customer ====>", customer);
+
+    /////////////////////////////////////
+
+    // const customer = await stripe.customers.create({
+    //   description: "Customer the El_Koikil",
+    //   source: req.fields.token,
+    //   email: req.fields.email, // obtained with Stripe.js
+    //   name: "El_Koikil"
+    // });
+    // console.log("customer ====>", customer);
+
+    /////////////////////////////////////
 
     // function(err, customer) {
     //   console.log(customer);
@@ -82,16 +85,17 @@ router.post("/charge", async (req, res) => {
     // }
 
     let { status } = await stripe.charges.create({
-      amount: 15000,
+      amount: -15000,
       currency: "eur",
       description: "test koikil paiement",
-      source: req.fields.token
+      source: req.fields.token,
+      customer: "cus_FhmmVY7DfpKKmR"
     });
     // 8. Le paiement a fonctionné
     // 9. On peut mettre à jour la base de données
     // 10. On renvoie une réponse au client pour afficher un message de statut
-    res.json({ status });
     console.log({ status });
+    res.json({ status });
   } catch (err) {
     console.log("erreur du catch ===>", err.message);
     res.status(500).end();
