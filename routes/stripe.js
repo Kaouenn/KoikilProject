@@ -17,7 +17,7 @@ router.post("/charge", async (req, res) => {
       name: req.fields.name
     });
     console.log("customer ====>", customer);
-    console.log("status.data ===================>", status.data);
+    console.log("status.data ===================>", status);
 
     /////////////////////////////////////
 
@@ -25,8 +25,8 @@ router.post("/charge", async (req, res) => {
       amount: 15000,
       currency: "eur",
       description: "koikil paiement assurance",
-      source: status.data.token,
-      customer: status.id
+      source: customer.source,
+      customer: customer.id
     });
     // 8. Le paiement a fonctionné
     // 9. On peut mettre à jour la base de données
