@@ -16,7 +16,7 @@ router.post("/charge", async (req, res) => {
       email: req.fields.email, // obtained with Stripe.js
       name: req.fields.name
     });
-    // console.log("customer ====>", customer);
+    console.log("customer ====>", customer);
 
     /////////////////////////////////////
 
@@ -41,7 +41,7 @@ router.post("/charge", async (req, res) => {
       "status.datatageule ===================================>",
       status
     );
-    res.json({ customer });
+    res.json({ status });
   } catch (err) {
     console.log("erreur du catch ===>", err.message);
     res.status(500).end();
