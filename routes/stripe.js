@@ -68,7 +68,9 @@ router.post("/charge", async (req, res) => {
       description: "Customer the El_Koikil",
       source: req.fields.token,
       email: req.fields.email, // obtained with Stripe.js
-      name: "El_Koikil"
+      name: "El_Koikil",
+      amount: 15000,
+      currency: "eur"
     });
     console.log("customer ====>", customer);
 
