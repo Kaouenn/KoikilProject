@@ -25,9 +25,31 @@ router.post("/charge", async (req, res) => {
       description: "test koikil paiement",
       source: req.fields.token
     });
+
+    // 8. Le paiement a fonctionné
+    // 9. On peut mettre à jour la base de données
+    // 10. On renvoie une réponse au client pour afficher un message de statut
+    res.json({ status });
+    console.log({ status });
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).end();
+  }
+});
+
+router.post("/v1/customers", async (req, res) => {
+  try {
+    // 6. On envoie le token a Stripe avec le montant
+    // (async () => {
+    //   const customer = await stripe.customers.create({
+    //     email: req.fields.customerEmail,
+    //     source: req.fields.token
+    //   });
+    // })();
+
     stripe.customers.create(
       {
-        description: "Customer for El_Koikil",
+        description: "Customer the El_Koikil",
         source: status.id,
         email: req.fields.email, // obtained with Stripe.js
         name: "El_Koikil",
