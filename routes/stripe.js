@@ -28,17 +28,17 @@ router.post("/charge", async (req, res) => {
       customer: customer.id
     });
 
-    stripe.invoices.create({
-      customer: customer.id,
-      amount: 1500,
-      description: "invoice test"
-    });
+    // stripe.invoices.create({
+    //   customer: customer.id,
+    //   amount: 1500,
+    //   description: "invoice test"
+    // });
     console.log("status.data ===================>", status);
     // 8. Le paiement a fonctionné
     // 9. On peut mettre à jour la base de données
     // 10. On renvoie une réponse au client pour afficher un message de statut
     console.log({ status });
-    res.json({ status });
+    res.json({ status, customer });
   } catch (err) {
     console.log("erreur du catch ===>", err.message);
     res.status(500).end();
