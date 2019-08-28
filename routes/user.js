@@ -49,7 +49,8 @@ router.post("/signupUser", async (req, res) => {
     res.json({
       email,
       token,
-      name
+      name,
+      lastName
     });
   } catch (error) {
     res.json({ error: error.message });
@@ -79,7 +80,8 @@ router.post("/loginUser", async (req, res) => {
   res.json({
     email,
     token: user.token,
-    name: user.name
+    name: user.name,
+    lastName: user.lastName
   });
 });
 
