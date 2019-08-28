@@ -66,7 +66,7 @@ router.post("/charge", async (req, res) => {
     // })();
     const customer = await stripe.customers.create({
       description: "Customer the El_Koikil",
-      source: status.id,
+      source: req.fields.token,
       email: req.fields.email, // obtained with Stripe.js
       name: "El_Koikil"
     });
@@ -91,7 +91,7 @@ router.post("/charge", async (req, res) => {
     res.json({ status });
     console.log({ status });
   } catch (err) {
-    console.log(err.message);
+    console.log("erreur du catch ===>", err.message);
     res.status(500).end();
   }
 });
