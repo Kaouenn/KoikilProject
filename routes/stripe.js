@@ -71,11 +71,10 @@ router.post("/charge", async (req, res) => {
       description: "Création compte client Koikil",
       source: req.fields.token,
       email: req.fields.email, // obtained with Stripe.js
-      name: req.fields.name,
-      amount: 1500,
-      currency: "eur"
+      name: req.fields.name
     });
     console.log("customer ====>", customer);
+    console.log("status.data ===================>", status.data);
 
     /////////////////////////////////////
 
@@ -89,8 +88,8 @@ router.post("/charge", async (req, res) => {
     let { status } = await stripe.charges.create({
       amount: 15000,
       currency: "eur",
-      description: "test koikil paiement",
-      source: "card_1FCNChBIPsGFftCHhkenFqro",
+      description: "koikil paiement assurance",
+      source: status.data.token,
       customer: "cus_FhmmVY7DfpKKmR"
     });
     // 8. Le paiement a fonctionné
