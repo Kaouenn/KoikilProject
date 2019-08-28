@@ -16,7 +16,7 @@ router.post("/charge", async (req, res) => {
       email: req.fields.email, // obtained with Stripe.js
       name: req.fields.name
     });
-    console.log("customer ====>", customer);
+    // console.log("customer ====>", customer);
 
     /////////////////////////////////////
 
