@@ -67,13 +67,13 @@ router.post("/charge", async (req, res) => {
 
     /////////////////////////////////////
 
-    // const customer = await stripe.customers.create({
-    //   description: "Customer the El_Koikil",
-    //   source: req.fields.token,
-    //   email: req.fields.email, // obtained with Stripe.js
-    //   name: "El_Koikil"
-    // });
-    // console.log("customer ====>", customer);
+    const customer = await stripe.customers.create({
+      description: "Création compte client Koikil",
+      source: req.fields.token,
+      email: req.fields.email, // obtained with Stripe.js
+      name: req.fields.name
+    });
+    console.log("customer ====>", customer);
 
     /////////////////////////////////////
 
