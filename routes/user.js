@@ -61,7 +61,8 @@ router.post("/signupUser", async (req, res) => {
 router.post("/loginUser", async (req, res) => {
   const { password, email } = req.fields;
   // on cherche l'utilisateur par son username
-  const user = await User.findOne({ email });
+  const user = await User.findOne({ email }).populate("autoEcole");
+  console.log("user pop  ", user);
   if (!user) {
     res.status(403).json({
       error: "Unvalid email/password"
@@ -81,7 +82,8 @@ router.post("/loginUser", async (req, res) => {
     email,
     token: user.token,
     name: user.name,
-    lastName: user.lastName
+    lastName: user.lastName,
+    autoEcole: user.autoEcole["Raison Sociale"]
   });
 });
 
@@ -128,7 +130,7 @@ router.post("/updateUser", async (req, res) => {
       }
 
       await user.save();
-      res.json({ message: "Updated" });
+      res.json({ user });
     } else {
       res.status(400).json({ message: "Missing parameter" });
     }
