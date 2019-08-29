@@ -51,6 +51,7 @@ router.post("/signupUser", async (req, res) => {
       email,
       token,
       name,
+      lastName,     
       dateCreatedContract
     });
   } catch (error) {
@@ -62,7 +63,8 @@ router.post("/signupUser", async (req, res) => {
 router.post("/loginUser", async (req, res) => {
   const { password, email } = req.fields;
   // on cherche l'utilisateur par son username
-  const user = await User.findOne({ email });
+  const user = await User.findOne({ email }).populate("autoEcole");
+  console.log("user pop  ", user);
   if (!user) {
     res.status(403).json({
       error: "Unvalid email/password"
@@ -78,11 +80,21 @@ router.post("/loginUser", async (req, res) => {
     });
     return;
   }
+  if (user.autoEcole) {
+    res.json({
+      email,
+      token: user.token,
+      name: user.name,
+      lastName: user.lastName,
+      autoEcole: user.autoEcole["Raison Sociale"]
+    });
+  }
   res.json({
     email,
     token: user.token,
     name: user.name,
-    dateCreatedContract: user.dateCreatedContract
+    lastName: user.lastName,
+    dateCreatedContract:user.dateCreatedContract
   });
 });
 
@@ -90,7 +102,7 @@ router.post("/loginUser", async (req, res) => {
 router.get("/user", async (req, res) => {
   try {
     const users = await User.find().populate("autoEcole");
-    // console.log(users);
+    //console.log(users);
 
     res.json({ users });
   } catch (error) {
@@ -129,7 +141,7 @@ router.post("/updateUser", async (req, res) => {
       }
 
       await user.save();
-      res.json({ message: "Updated" });
+      res.json({ user });
     } else {
       res.status(400).json({ message: "Missing parameter" });
     }
