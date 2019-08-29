@@ -78,12 +78,21 @@ router.post("/loginUser", async (req, res) => {
     });
     return;
   }
+  if (user.autoEcole) {
+    res.json({
+      email,
+      token: user.token,
+      name: user.name,
+      lastName: user.lastName,
+      autoEcole: user.autoEcole["Raison Sociale"]
+    });
+  }
   res.json({
     email,
     token: user.token,
     name: user.name,
-    lastName: user.lastName,
-    autoEcole: user.autoEcole["Raison Sociale"]
+    lastName: user.lastName
+    // autoEcole: user.autoEcole["Raison Sociale"]
   });
 });
 
@@ -91,7 +100,7 @@ router.post("/loginUser", async (req, res) => {
 router.get("/user", async (req, res) => {
   try {
     const users = await User.find().populate("autoEcole");
-    // console.log(users);
+    //console.log(users);
 
     res.json({ users });
   } catch (error) {
