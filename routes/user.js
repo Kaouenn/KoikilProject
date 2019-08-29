@@ -50,7 +50,7 @@ router.post("/signupUser", async (req, res) => {
       email,
       token,
       name,
-      lastName,     
+      lastName,
       dateCreatedContract
     });
   } catch (error) {
@@ -88,12 +88,22 @@ router.post("/loginUser", async (req, res) => {
       autoEcole: user.autoEcole["Raison Sociale"]
     });
   }
+
+  if (user.dateCreatedContract) {
+    res.json({
+      email,
+      token: user.token,
+      name: user.name,
+      lastName: user.lastName,
+      autoEcole: user.autoEcole["Raison Sociale"],
+      dateCreatedContract: user.dateCreatedContract
+    });
+  }
   res.json({
     email,
     token: user.token,
     name: user.name,
-    lastName: user.lastName,
-    dateCreatedContract:user.dateCreatedContract
+    lastName: user.lastName
   });
 });
 
