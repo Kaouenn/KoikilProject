@@ -50,8 +50,7 @@ router.post("/signupUser", async (req, res) => {
       email,
       token,
       name,
-      lastName,
-      dateCreatedContract
+      lastName
     });
   } catch (error) {
     res.json({ error: error.message });
