@@ -37,8 +37,7 @@ router.post("/signupUser", async (req, res) => {
       lastName,
       postCode,
       phoneNumber,
-      adress,
-      dateCreatedContract
+      adress
     });
     /*  if (req.fields.email === user.email) {
       res.status(409).json({
