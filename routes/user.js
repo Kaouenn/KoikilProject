@@ -37,7 +37,8 @@ router.post("/signupUser", async (req, res) => {
       lastName,
       postCode,
       phoneNumber,
-      adress
+      adress,
+      dateCreatedContract
     });
     /*  if (req.fields.email === user.email) {
       res.status(409).json({
@@ -50,7 +51,8 @@ router.post("/signupUser", async (req, res) => {
       email,
       token,
       name,
-      lastName
+      lastName,     
+      dateCreatedContract
     });
   } catch (error) {
     res.json({ error: error.message });
@@ -91,8 +93,8 @@ router.post("/loginUser", async (req, res) => {
     email,
     token: user.token,
     name: user.name,
-    lastName: user.lastName
-    // autoEcole: user.autoEcole["Raison Sociale"]
+    lastName: user.lastName,
+    dateCreatedContract:user.dateCreatedContract
   });
 });
 
