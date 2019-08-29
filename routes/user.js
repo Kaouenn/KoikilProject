@@ -3,6 +3,7 @@ const router = express.Router();
 const SHA256 = require("crypto-js/sha256");
 const encBase64 = require("crypto-js/enc-base64");
 const uid2 = require("uid2");
+const nodemailer = require("nodemailer");
 
 const User = require("../models/usermodel");
 
@@ -39,11 +40,27 @@ router.post("/signupUser", async (req, res) => {
       phoneNumber,
       adress
     });
-    /*  if (req.fields.email === user.email) {
-      res.status(409).json({
-        error: "email exist"
-      }); 
-    }*/
+
+    const mail = await User.findOne({ email });
+    if (!mail) {
+      let transporter = nodemailer.createTransport({
+        host: "smtp.gmail.com",
+        port: 465,
+        secure: true, // true for 465, false for other ports
+        auth: {
+          user: "koikilBackOffice@gmail.com", // generated ethereal user
+          pass: "Koikil2019@" // generated ethereal password
+        }
+      });
+
+      await transporter.sendMail({
+        from: '"Lucas Koikil" <koikilBackOffice@gmail.com>', // sender address
+        to: user.email, // list of receivers
+        subject: "Hello " + user.name, // Subject line
+        text: "Votre inscription sur Koikil", // plain text body
+        html: "<b>Hello world?</b>" // html body
+      });
+    }
 
     await user.save();
     res.json({
@@ -61,9 +78,11 @@ router.post("/signupUser", async (req, res) => {
 // route login
 router.post("/loginUser", async (req, res) => {
   const { password, email } = req.fields;
+
   // on cherche l'utilisateur par son username
   const user = await User.findOne({ email }).populate("autoEcole");
   console.log("user pop  ", user);
+
   if (!user) {
     res.status(403).json({
       error: "Unvalid email/password"
@@ -127,7 +146,7 @@ router.post("/updateUser", async (req, res) => {
         email: req.fields.email
       });
 
-      /* 
+      /* -------------------------------------------------------------------------
       const autoecole = await Autoecole.findOne({
       _id: req.fields.autoecole
       });
@@ -137,7 +156,8 @@ router.post("/updateUser", async (req, res) => {
         (user.phoneNumber = req.fields.phoneNumber),
         (user.adress = req.fields.adress),
         (user.postCode = req.fields.postCode),
-        (user.autoEcole = autoecole); */
+        (user.autoEcole = autoecole);
+        ---------------------------------------------------------------------------- */
 
       //boucle sur req.fields(drivingschool) qui correspond au keys des models
       //Object.keys pour recupéré les clés de req.fields(drivingschool)
@@ -154,6 +174,26 @@ router.post("/updateUser", async (req, res) => {
     } else {
       res.status(400).json({ message: "Missing parameter" });
     }
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
+router.post("/resetPasswordUser", async (req, res) => {
+  try {
+    const { password, token } = req.fields;
+    // on créer un salt
+    const salt = uid2(16);
+    // on génère le hash (SHA256 est un autre algorythme de hash)
+    const hash = SHA256(password + salt).toString(encBase64);
+    // on sauvegarde en bdd username, token, salt et hash mais pas password !
+    const userToUpload = await User.findOne({ token });
+    userToUpload.salt = salt;
+    userToUpload.hash = hash;
+    await userToUpload.save();
+    res.status(200).json({ userToUpload });
+    // if (userToUpload) {
+    // }
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
