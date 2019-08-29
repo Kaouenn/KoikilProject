@@ -2,28 +2,45 @@ const express = require("express");
 const router = express.Router();
 const createStripe = require("stripe");
 const cors = require("cors");
+const User = require("../models/usermodel");
 /* Votre clé privée doit être indiquée ici */
 
 const stripe = createStripe("sk_test_FcQTuuEym2CYxtkcMdLAsoEg002eXGf3Eg");
 
 router.use(cors());
-// router.use(body.json());
-// 5. on réceptionne le token
+
 router.post("/charge", async (req, res) => {
   try {
-    // 6. On envoie le token a Stripe avec le montant
+    const customer = await stripe.customers.create({
+      description: "Création compte client Koikil",
+      source: req.fields.token,
+      email: req.fields.email, // obtained with Stripe.js
+      name: req.fields.name
+    });
+    console.log("customer ====>", customer);
+
+    /////////////////////////////////////
+
     let { status } = await stripe.charges.create({
       amount: 15000,
       currency: "eur",
-      description: "test koikil paiement",
-      source: req.fields.token
+      description: "koikil paiement assurance",
+      source: customer.source,
+      customer: customer.id
     });
-    // 8. Le paiement a fonctionné
-    // 9. On peut mettre à jour la base de données
-    // 10. On renvoie une réponse au client pour afficher un message de statut
+
+    console.log(
+      "status.datatageule ===================================>",
+      status
+    );
+    // if(status) {
+    //   const userToUpdate= await User.findOne({})
+    //   userToUpdate.billStatus = true;
+
+    // }
     res.json({ status });
   } catch (err) {
-    console.log(err.message);
+    console.log("erreur du catch ===>", err.message);
     res.status(500).end();
   }
 });
