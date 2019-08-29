@@ -107,16 +107,16 @@ router.post("/loginUser", async (req, res) => {
     });
   }
 
-  if (user.dateCreatedContract) {
-    res.json({
-      email,
-      token: user.token,
-      name: user.name,
-      lastName: user.lastName,
-      autoEcole: user.autoEcole["Raison Sociale"],
-      dateCreatedContract: user.dateCreatedContract
-    });
-  }
+  // if (user.dateCreatedContract) {
+  //   res.json({
+  //     email,
+  //     token: user.token,
+  //     name: user.name,
+  //     lastName: user.lastName,
+  //     autoEcole: user.autoEcole["Raison Sociale"],
+  //     dateCreatedContract: user.dateCreatedContract
+  //   });
+  // }
   res.json({
     email,
     token: user.token,

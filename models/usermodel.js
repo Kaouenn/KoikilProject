@@ -38,10 +38,10 @@ const User = mongoose.model("User", {
   token: {
     type: String
   },
-  dateCreatedContract: {
-    type: String,
-    default: null
-  },
+  // dateCreatedContract: {
+  //   type: String,
+  //   default: null
+  // },
   contract: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Contract"
