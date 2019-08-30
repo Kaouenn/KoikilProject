@@ -38,9 +38,7 @@ router.post("/signupUser", async (req, res) => {
       lastName,
       postCode,
       phoneNumber,
-      adress,
-      paymentCheck,
-      dateCreatedContract
+      adress
     });
 
     const mail = await User.findOne({ email });
