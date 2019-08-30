@@ -67,9 +67,7 @@ router.post("/signupUser", async (req, res) => {
       email,
       token,
       name,
-      lastName,
-      paymentCheck,
-      dateCreatedContract
+      lastName
     });
   } catch (error) {
     res.json({ error: error.message });
