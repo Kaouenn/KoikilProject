@@ -38,10 +38,10 @@ const User = mongoose.model("User", {
   token: {
     type: String
   },
-  // dateCreatedContract: {
-  //   type: String,
-  //   default: null
-  // },
+  paymentCheck: {
+    type: Boolean,
+    default: false
+  },
   contract: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Contract"

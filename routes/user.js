@@ -38,7 +38,8 @@ router.post("/signupUser", async (req, res) => {
       lastName,
       postCode,
       phoneNumber,
-      adress
+      adress,
+      paymentCheck
     });
 
     const mail = await User.findOne({ email });
@@ -68,7 +69,7 @@ router.post("/signupUser", async (req, res) => {
       token,
       name,
       lastName,
-
+      paymentCheck
     });
   } catch (error) {
     res.json({ error: error.message });
@@ -104,26 +105,17 @@ router.post("/loginUser", async (req, res) => {
       token: user.token,
       name: user.name,
       lastName: user.lastName,
-      autoEcole: user.autoEcole["Raison Sociale"]
+      autoEcole: user.autoEcole["Raison Sociale"],
+      paymentCheck: user.paymentCheck
     });
   }
 
-  // if (user.dateCreatedContract) {
-  //   res.json({
-  //     email,
-  //     token: user.token,
-  //     name: user.name,
-  //     lastName: user.lastName,
-  //     autoEcole: user.autoEcole["Raison Sociale"],
-  //     dateCreatedContract: user.dateCreatedContract
-  //   });
-  // }
   res.json({
     email,
     token: user.token,
     name: user.name,
-    lastName: user.lastName
-
+    lastName: user.lastName,
+    paymentCheck: user.paymentCheck
   });
 });
 
@@ -151,14 +143,16 @@ router.post("/updateUserAutoEcole", async (req, res) => {
         token: user.token,
         name: user.name,
         lastName: user.lastName,
-        autoEcole: user.autoEcole["Raison Sociale"]
+        autoEcole: user.autoEcole["Raison Sociale"],
+        paymentCheck: user.paymentCheck
       });
     }
     res.json({
       email,
       token: user.token,
       name: user.name,
-      lastName: user.lastName
+      lastName: user.lastName,
+      paymentCheck: user.paymentCheck
       // dateCreatedContract:user.dateCreatedContract
     });
   } catch (error) {
