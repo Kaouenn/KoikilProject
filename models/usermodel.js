@@ -42,6 +42,10 @@ const User = mongoose.model("User", {
     type: Boolean,
     default: false
   },
+  dateCreatedContract: {
+    type: String,
+    default: ""
+  },
   contract: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Contract"
