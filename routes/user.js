@@ -67,7 +67,8 @@ router.post("/signupUser", async (req, res) => {
       email,
       token,
       name,
-      lastName
+      lastName,
+
     });
   } catch (error) {
     res.json({ error: error.message });
@@ -122,6 +123,7 @@ router.post("/loginUser", async (req, res) => {
     token: user.token,
     name: user.name,
     lastName: user.lastName
+
   });
 });
 
@@ -132,6 +134,33 @@ router.get("/user", async (req, res) => {
     //console.log(users);
 
     res.json({ users });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
+router.post("/updateUserAutoEcole", async (req, res) => {
+  try {
+    const { email } = req.fields;
+    const user = await User.findOne({ email }).populate("autoEcole");
+    console.log(user);
+
+    if (user.autoEcole) {
+      res.json({
+        email,
+        token: user.token,
+        name: user.name,
+        lastName: user.lastName,
+        autoEcole: user.autoEcole["Raison Sociale"]
+      });
+    }
+    res.json({
+      email,
+      token: user.token,
+      name: user.name,
+      lastName: user.lastName
+      // dateCreatedContract:user.dateCreatedContract
+    });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
